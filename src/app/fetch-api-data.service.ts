@@ -5,7 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'YOUR_HOSTED_API_URL_HERE/';
+const apiUrl = 'https://glacial-shore-06302.herokuapp.com/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,22 +15,34 @@ export class FetchApiDataService {
  // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
   }
+
  // Making the api call for the user registration endpoint
-  public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
-    return this.http.post(apiUrl + `users`, userDetails).pipe(
-    catchError(this.handleError)
-    );
-  }
+  public userRegistration(): Observable<any> {
+      // Getting the token from localStorage 
+  const token = localStorage.getItem('token');
+     
+  return this.http.post(apiUrl + `users/register`, {
+    headers: new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    }),
+  })
+  .pipe(catchError(this.handleError));
+}
 
   // Making the api call for the user login endpoint
-  public userLogin(userCredentials: any): Observable<any> {
-    console.log(userCredentials);
-    return this.http.post(apiUrl + `login`, userCredentials).pipe(
-    catchError(this.handleError)
-    );
+  public userLogin(): Observable<any> {
+  
+  // Getting the token from localStorage 
+  const token = localStorage.getItem('token');
+  
+    return this.http.post(apiUrl + `/login`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    })
+    .pipe(catchError(this.handleError));
   }
-
+  
 // Making the api call for retrieving all movies
   public getAllMovies(allMovies: any): Observable<any> {
     console.log(allMovies);
@@ -63,12 +76,21 @@ export class FetchApiDataService {
   }
   
 // Making the api call to get user information
-  public getUser(userInfo: any): Observable<any> {
-    console.log(userInfo);
-    return this.http.get(apiUrl + `user/username`, userInfo).pipe(
-    catchError(this.handleError)
-    );
-  }
+public getUser(): Observable<any> {
+
+  // Getting the token from localStorage 
+  const token = localStorage.getItem('token');
+  
+  // Get the user from localStorage
+  const username = localStorage.getItem('users');
+  
+  return this.http.get(apiUrl + `users/${username}`, {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
+      })
+      .pipe(catchError(this.handleError));
+    }
 
 // Making the api call to add a movies to favorites list
   public addMovie(addFavorite: any): Observable<any> {
