@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://glacial-shore-06302.herokuapp.com/';
+const apiUrl = 'https://git.heroku.com/stark-oasis-54313/';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class FetchApiDataService {
   }
 
  // Making the api call for the user registration endpoint
-  public userRegistration(): Observable<any> {
+  public userRegistration(userData: any): Observable<any> {
       // Getting the token from localStorage 
   const token = localStorage.getItem('token');
-     
-  return this.http.post(apiUrl + `users/register`, {
+  console.log(userData);
+  return this.http.post(apiUrl + `users/register`, userData, {
     headers: new HttpHeaders({
       Authorization: `Bearer ${token}`,
     }),
@@ -30,12 +30,12 @@ export class FetchApiDataService {
 }
 
   // Making the api call for the user login endpoint
-  public userLogin(): Observable<any> {
+  public userLogin(loginInfo: any): Observable<any> {
   
   // Getting the token from localStorage 
   const token = localStorage.getItem('token');
-  
-    return this.http.post(apiUrl + `/login`, {
+  console.log(loginInfo);
+    return this.http.post(apiUrl + `/login`, loginInfo, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
       }),
