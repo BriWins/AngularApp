@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = `https://stark-oasis-54313.herokuapp.com/`;
+const apiUrl = `https://glacial-shore-06302.herokuapp.com/`;
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class FetchApiDataService {
   // Getting the token from localStorage 
   const token = localStorage.getItem('token');
   console.log(loginInfo);
-    return this.http.post(apiUrl + `/login`, loginInfo, {
+    return this.http.post(apiUrl + `login`, loginInfo, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
       }),
@@ -40,12 +40,17 @@ export class FetchApiDataService {
   }
   
 // Making the api call for retrieving all movies
-  public getAllMovies(allMovies: any): Observable<any> {
-    console.log(allMovies);
-    return this.http.get(apiUrl + `movies`, allMovies).pipe(
-    catchError(this.handleError)
-    );
-  }
+getAllMovies(): Observable<any> {
+  // Get Authorization token stored in local storage
+  const token = localStorage.getItem('token');
+  return this.http
+    .get(apiUrl + 'movies', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token,
+      })
+    })
+    .pipe(catchError(this.handleError));
+}
 
 // Making the api call for retrieving a single movie by title
   public getSingleMovie(singleMovie: any): Observable<any> {
