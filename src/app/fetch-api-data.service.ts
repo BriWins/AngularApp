@@ -21,11 +21,7 @@ export class FetchApiDataService {
       // Getting the token from localStorage 
   const token = localStorage.getItem('token');
   console.log(userData);
-  return this.http.post(apiUrl + `users/register`, userData, {
-    headers: new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    }),
-  })
+  return this.http.post(apiUrl + `users/register`, userData)
   .pipe(catchError(this.handleError));
 }
 
