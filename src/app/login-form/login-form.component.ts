@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginFormComponent implements OnInit {
 
-  @Input() loginInfo = { username: '', password: '' };
+  @Input() loginInfo = { Username: '', Password: '' };
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -32,6 +32,7 @@ loginUser(): void {
     this.fetchApiData.userLogin(this.loginInfo).subscribe((result) => {
   // Logic for a successful user registration goes here! (To be implemented)
      this.dialogRef.close(); // This will close the modal on success!
+     console.log("login success!");
      this.snackBar.open(result, 'OK', {
         duration: 2000
      });

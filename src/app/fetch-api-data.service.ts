@@ -5,7 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = `https://glacial-shore-06302.herokuapp.com/`;
+const apiUrl = `https://stark-oasis-54313.herokuapp.com/`;
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +18,28 @@ export class FetchApiDataService {
   }
 
  // Making the api call for the user registration endpoint
-  public userRegistration(userData: any): Observable<any> {
+  public userRegistration(userDetails: any): Observable<any> {
       // Getting the token from localStorage 
   const token = localStorage.getItem('token');
-  console.log(userData);
-  return this.http.post(apiUrl + `users/register`, userData)
+  console.log(userDetails);
+  return this.http.post(apiUrl + `users/register`, userDetails, {
+    headers: new HttpHeaders({
+      Authorization: `Bearer ${token}`, 
+    }),
+  })
   .pipe(catchError(this.handleError));
 }
 
   // Making the api call for the user login endpoint
-  public userLogin(loginInfo: any): Observable<any> {
+  public userLogin(loginDetails: any): Observable<any> {
   
   // Getting the token from localStorage 
   const token = localStorage.getItem('token');
-  console.log(loginInfo);
-    return this.http.post(apiUrl + `login`, loginInfo, {
+  const users = localStorage.getItem("users");
+  console.log(loginDetails);
+    return this.http.post(apiUrl + `login`, loginDetails, {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`, 
       }),
     })
     .pipe(catchError(this.handleError));
