@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
       console.log(result);
       // Add token and username to local Storage
       localStorage.setItem('token', result.token);
-      localStorage.setItem('user', result.user.Username);
+      localStorage.setItem('users', result.users.Username);
 
       // Redirect to movies (main) page
       this.router.navigate(['movies']);
