@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: any = {};
+  users: any = {};
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -34,9 +34,9 @@ export class ProfileComponent implements OnInit {
    */
   getUser(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
-      this.user = resp;
-      console.log(this.user);
-      return this.user;
+      this.users = resp;
+      console.log(this.users);
+      return this.users;
     })
   }
 

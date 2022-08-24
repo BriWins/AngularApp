@@ -32,13 +32,13 @@ export class EditProfileComponent implements OnInit {
         duration: 2000
       });
       // Log out user if they update Username or Password to avoid errors
-      if (this.userData.Username || this.userData.Password) {
-        localStorage.clear();
-        this.router.navigate(['welcome']);
-        this.snackBar.open('Please login again with your new credentials', 'OK', {
-          duration: 2000
-        });
-      }
+      // if (this.userData.Username || this.userData.Password) {
+      //   localStorage.clear();
+      //   this.router.navigate(['welcome']);
+      //   this.snackBar.open('Please login again with your new credentials', 'OK', {
+      //     duration: 2000
+      //   });
+      // }
     })
   }
 
