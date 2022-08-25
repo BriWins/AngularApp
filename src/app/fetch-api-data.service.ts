@@ -129,7 +129,7 @@ export class FetchApiDataService {
     // Get Username stored in local storage
     const username = localStorage.getItem('users');
     return this.http
-      .post(apiUrl + `users/:Username/movies/:MovieID`, MovieID, {
+      .post(apiUrl + `users/${username}/movies/${MovieID}`, MovieID, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
@@ -139,7 +139,7 @@ export class FetchApiDataService {
         catchError(this.handleError)
       );
   }
-
+ 
   removeFavoriteMovie(movieID: any): Observable<any> {
     // Get Authorization token stored in local storage
     const token = localStorage.getItem('token');
