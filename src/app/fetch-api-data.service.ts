@@ -140,13 +140,13 @@ export class FetchApiDataService {
       );
   }
  
-  removeFavoriteMovie(movieID: any): Observable<any> {
+  removeFavoriteMovie(MovieID: any): Observable<any> {
     // Get Authorization token stored in local storage
     const token = localStorage.getItem('token');
     // Get Username stored in local storage
     const username = localStorage.getItem('users');
     return this.http
-      .delete(apiUrl + `users/:Username/movies/:MovieId`, {
+      .delete(apiUrl + `users/${username}/movies/${MovieID}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })

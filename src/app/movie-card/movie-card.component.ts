@@ -135,9 +135,9 @@ export class MovieCardComponent implements OnInit {
    * @param id
    * @function removeFavoriteMovie
    */
-  removeFromFavoriteMovies(ID: string): void {
-    console.log(ID);
-    this.fetchApiData.removeFavoriteMovie(ID).subscribe((result) => {
+  removeFromFavoriteMovies(MovieID: string): void {
+    console.log(MovieID);
+    this.fetchApiData.removeFavoriteMovie(MovieID).subscribe((result) => {
       console.log(result);
       this.ngOnInit();
     });
